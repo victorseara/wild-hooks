@@ -1,0 +1,13 @@
+{
+  "name": "@wild-hooks/use-element-size",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest",
+    "test:ui": "vitest --ui --coverage.enabled=true"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}
