@@ -5,7 +5,7 @@ import {
   type ElementSize,
   type UseElementSizeAction,
 } from "./use-element-size.types";
-import { useResizeObserverCallback } from "@wild-hooks/use-resize-observer/hook/use-resize-observer.types";
+import type { UseResizeObserverCallback } from "@wild-hooks/use-resize-observer";
 
 export const isSizesEquals = (
   previousSize: ElementSize,
@@ -46,7 +46,7 @@ export const applyResizeObserverCallback = <
 >(
   dispatch: Dispatch<UseElementSizeAction>,
   dimension?: Dimension
-): useResizeObserverCallback<T> => {
+): UseResizeObserverCallback<T> => {
   return (entries, element) => {
     const entry = entries.find((entry) => entry.target === element);
 
