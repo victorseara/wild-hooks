@@ -1,4 +1,5 @@
-import { useCallback, useLayoutEffect } from "react";
+import { useIsomorphicLayoutEffect } from "@wild-hooks/use-isomorphic-layout-effect";
+import { useCallback } from "react";
 import {
   RefHTMLElement,
   useResizeObserverCallback,
@@ -17,7 +18,7 @@ export default function useResizeObserver<
     return resizeObserver;
   }, []);
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const element = ref.current;
 
     if (element == null) return;
