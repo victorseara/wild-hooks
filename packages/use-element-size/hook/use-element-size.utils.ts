@@ -1,3 +1,4 @@
+import { Dispatch } from "react";
 import {
   Dimension,
   UseElementSizeActionType,
@@ -22,26 +23,45 @@ export const elementSizeReducer = (
   state: ElementSize,
   action: UseElementSizeAction
 ) => {
-  switch (action.type) {
-    case UseElementSizeActionType.UPDATE_SINGLE_DIMENSION: {
-      if (isDimensionEquals(state, action.value, action.dimension))
-        return state;
-      return {
-        ...state,
-        [action.dimension]: action.value,
-      };
-    }
-    case UseElementSizeActionType.UPDATE_BOTH_DIMENSIONS:
-      {
-        if (isSizesEquals(state, action.size)) return state;
-      }
-      return action.size;
-    default:
-      return state;
+  if (action.type === UseElementSizeActionType.UPDATE_SINGLE_DIMENSION) {
+    return isDimensionEquals(state, action.value, action.dimension)
+      ? state
+      : {
+          ...state,
+          [action.dimension]: action.value,
+        };
   }
+
+  return isSizesEquals(state, action.size) ? state : action.size;
 };
 
 export const initialState: ElementSize = {
   height: 0,
   width: 0,
+};
+
+export const applyResizeObserverCallback = (
+  dispatch: Dispatch<UseElementSizeAction>,
+  dimension?: Dimension
+) => {
+  return (entry: ResizeObserverEntry) => {
+    const newSize: ElementSize = {
+      height: entry.target.clientHeight,
+      width: entry.target.clientWidth,
+    };
+
+    if (dimension) {
+      dispatch({
+        type: UseElementSizeActionType.UPDATE_SINGLE_DIMENSION,
+        dimension: dimension,
+        value: newSize[dimension],
+      });
+      return;
+    }
+
+    return dispatch({
+      type: UseElementSizeActionType.UPDATE_BOTH_DIMENSIONS,
+      size: newSize,
+    });
+  };
 };
