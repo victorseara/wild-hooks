@@ -2,13 +2,13 @@ import { useIsomorphicLayoutEffect } from "@wild-hooks/use-isomorphic-layout-eff
 import { useCallback } from "react";
 import {
   RefHTMLElement,
-  useResizeObserverCallback,
+  UseResizeObserverCallback,
 } from "./use-resize-observer.types";
 import { getResizeObserverCallback } from "./use-resize-observer.utils";
 
 export default function useResizeObserver<
   T extends keyof HTMLElementTagNameMap
->(ref: RefHTMLElement<T>, callback: useResizeObserverCallback<T>) {
+>(ref: RefHTMLElement<T>, callback: UseResizeObserverCallback<T>) {
   const createObserver = useCallback((element: HTMLElementTagNameMap[T]) => {
     const applyCallback = getResizeObserverCallback(element);
     const setupObserver = applyCallback(callback);
