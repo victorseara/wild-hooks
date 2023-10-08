@@ -1,5 +1,5 @@
 {
-  "name": "@wild-hooks/use-resize-observer",
+  "name": "@wild-hooks/use-isomorphic-layout-effect",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
