@@ -46,7 +46,7 @@ export default function useElementSize<T extends keyof HTMLElementTagNameMap>(
     return () => {
       resizeObserver.unobserve(element);
     };
-  });
+  }, []);
 
   return size;
 }
