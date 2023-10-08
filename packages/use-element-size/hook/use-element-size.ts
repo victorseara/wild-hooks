@@ -1,5 +1,5 @@
 import { useResizeObserver } from "@wild-hooks/use-resize-observer";
-import { useCallback, useReducer } from "react";
+import { useMemo, useReducer } from "react";
 import { type UseElementSizeOptions } from "./use-element-size.types";
 import {
   applyResizeObserverCallback,
@@ -12,7 +12,7 @@ export default function useElementSize<T extends keyof HTMLElementTagNameMap>(
 ) {
   const [size, dispatch] = useReducer(elementSizeReducer, initialState);
 
-  const resizeObserverCallback = useCallback(
+  const resizeObserverCallback = useMemo(
     () => applyResizeObserverCallback(dispatch, options.dimension),
     []
   );
