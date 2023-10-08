@@ -12,4 +12,15 @@ describe(getResizeObserverCallback.name, () => {
 
     expect(callbackMock).toHaveBeenCalledWith(entry);
   });
+
+  test("shouldn't apply callback in entry was not found", () => {
+    const ref = { current: document.createElement("div") };
+    const callbackMock = vi.fn();
+
+    const applyCallback = getResizeObserverCallback(ref.current);
+    const setupObserver = applyCallback(callbackMock);
+    setupObserver([]);
+
+    expect(callbackMock).not.toHaveBeenCalled();
+  });
 });
