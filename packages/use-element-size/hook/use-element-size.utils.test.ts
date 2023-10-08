@@ -8,6 +8,7 @@ import {
   initialState,
   isDimensionEquals,
   elementSizeReducer,
+  applyResizeObserverCallback,
 } from "./use-element-size.utils";
 
 describe(isSizesEquals.name, () => {
@@ -120,5 +121,56 @@ describe(elementSizeReducer.name, () => {
       height: 0,
       width: 0,
     });
+  });
+});
+
+describe(applyResizeObserverCallback.name, () => {
+  test("should dispatch UPDATE_SINGLE_DIMENSION if dimension was provided", () => {
+    const ref = { current: document.createElement("div") };
+    const dispatch = vi.fn();
+    const entry = { target: ref.current } as unknown as ResizeObserverEntry;
+    const entries = [entry];
+    const dimension: Dimension = "height";
+
+    const observerCallback = applyResizeObserverCallback(dispatch, dimension);
+    observerCallback(entries, ref.current);
+
+    const expectedAction: UseElementSizeAction = {
+      dimension,
+      type: UseElementSizeActionType.UPDATE_SINGLE_DIMENSION,
+      value: entry.target.clientHeight,
+    };
+
+    expect(dispatch).toHaveBeenCalledWith(expectedAction);
+  });
+
+  test("should dispatch UPDATE_BOTH_DIMENSION if dimension was not provided", () => {
+    const ref = { current: document.createElement("div") };
+    const dispatch = vi.fn();
+    const entry = { target: ref.current } as unknown as ResizeObserverEntry;
+    const entries = [entry];
+
+    const observerCallback = applyResizeObserverCallback(dispatch);
+    observerCallback(entries, ref.current);
+
+    const expectedAction: UseElementSizeAction = {
+      type: UseElementSizeActionType.UPDATE_BOTH_DIMENSIONS,
+      size: {
+        height: entry.target.clientHeight,
+        width: entry.target.clientWidth,
+      },
+    };
+
+    expect(dispatch).toHaveBeenCalledWith(expectedAction);
+  });
+
+  test("should do nothing if entry is not found", () => {
+    const ref = { current: document.createElement("div") };
+    const dispatch = vi.fn();
+
+    const observerCallback = applyResizeObserverCallback(dispatch);
+    observerCallback([], ref.current);
+
+    expect(dispatch).not.toHaveBeenCalled();
   });
 });

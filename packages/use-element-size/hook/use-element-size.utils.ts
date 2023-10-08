@@ -58,12 +58,11 @@ export const applyResizeObserverCallback = <
     };
 
     if (dimension) {
-      dispatch({
+      return dispatch({
         type: UseElementSizeActionType.UPDATE_SINGLE_DIMENSION,
         dimension: dimension,
         value: newSize[dimension],
       });
-      return;
     }
 
     return dispatch({
