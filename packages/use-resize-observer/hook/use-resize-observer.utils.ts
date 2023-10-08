@@ -5,12 +5,8 @@ export const getResizeObserverCallback = <
 >(
   element: HTMLElementTagNameMap[T]
 ) => {
-  return (callback: useResizeObserverCallback) =>
+  return (callback: useResizeObserverCallback<T>) =>
     (entries: ResizeObserverEntry[]) => {
-      const entry = entries.find((item) => item.target === element);
-
-      if (!entry) return;
-
-      callback(entry);
+      callback(entries, element);
     };
 };

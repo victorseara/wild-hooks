@@ -8,7 +8,7 @@ import { getResizeObserverCallback } from "./use-resize-observer.utils";
 
 export default function useResizeObserver<
   T extends keyof HTMLElementTagNameMap
->(ref: RefHTMLElement<T>, callback: useResizeObserverCallback) {
+>(ref: RefHTMLElement<T>, callback: useResizeObserverCallback<T>) {
   const createObserver = useCallback((element: HTMLElementTagNameMap[T]) => {
     const applyCallback = getResizeObserverCallback(element);
     const setupObserver = applyCallback(callback);
