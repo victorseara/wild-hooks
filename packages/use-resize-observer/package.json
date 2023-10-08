@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "vitest --watch=false",
+    "test": "vitest",
     "test:watch": "vitest --watch",
     "test:ui": "vitest --ui --coverage.enabled=true"
   },
