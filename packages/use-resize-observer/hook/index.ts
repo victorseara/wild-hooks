@@ -1,1 +1,1 @@
-export { default as useElementSize } from "./use-resize-observer";
+export { default as useResizeObserver } from "./use-resize-observer";
