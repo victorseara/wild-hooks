@@ -1,0 +1,14 @@
+{
+  "name": "@wild-hooks/use-resize-observer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest --watch=false",
+    "test:watch": "vitest --watch",
+    "test:ui": "vitest --ui --coverage.enabled=true"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}
