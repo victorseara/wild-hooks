@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:all": "pnpm run --recursive --parallel test"
+    "test:all": "pnpm run --recursive --parallel test:coverage"
   },
   "keywords": [],
   "author": "",
