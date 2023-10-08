@@ -5,6 +5,7 @@ import {
   type ElementSize,
   type UseElementSizeAction,
 } from "./use-element-size.types";
+import { useResizeObserverCallback } from "@wild-hooks/use-resize-observer/hook/use-resize-observer.types";
 
 export const isSizesEquals = (
   previousSize: ElementSize,
@@ -40,11 +41,17 @@ export const initialState: ElementSize = {
   width: 0,
 };
 
-export const applyResizeObserverCallback = (
+export const applyResizeObserverCallback = <
+  T extends keyof HTMLElementTagNameMap
+>(
   dispatch: Dispatch<UseElementSizeAction>,
   dimension?: Dimension
-) => {
-  return (entry: ResizeObserverEntry) => {
+): useResizeObserverCallback<T> => {
+  return (entries, element) => {
+    const entry = entries.find((entry) => entry.target === element);
+
+    if (!entry) return;
+
     const newSize: ElementSize = {
       height: entry.target.clientHeight,
       width: entry.target.clientWidth,
